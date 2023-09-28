@@ -3,6 +3,9 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 
+//super secret configuration
+require('dotenv').config();
+
 //multer, for file processing
 const multer = require('multer');
 
@@ -15,21 +18,26 @@ const {
 //Creates app
 const app = express();
 
+//Variables required for s3 client
+const region = 'us-east-1';
+const bucketName = 'careerf-tester';
+const accessKey = process.env.ACCESS_KEY;
+const secret = process.env.SECRET_ACCESS_KEY;
+
 //Creates new S3 client to pass to localstack
 const s3Client = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secret,
+  },
   region: 'us-east-1',
-  /* endpoint: 'ec2-3-84-49-24.compute-1.amazonaws.com',
-  forcePathStyle: true, */
 });
 
 //used to pass our bucket name to functions
 //my-cool-local-bucket
 const listObjectsParams = {
-  Bucket: 'careerf-tester',
+  Bucket: bucketName,
 };
-
-//variable to hold our bucket
-const bucketName = 'careerf-tester';
 
 //declares a variable to hold our command which then lists the objects from our bucket given by params
 listObjectsCmd = new ListObjectsV2Command(listObjectsParams);
