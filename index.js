@@ -2,9 +2,12 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
+const cors = require('cors');
 
 //super secret configuration
 require('dotenv').config();
+
+app.use(cors());
 
 //multer, for file processing
 const multer = require('multer');
