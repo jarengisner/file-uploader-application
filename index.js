@@ -7,8 +7,6 @@ const cors = require('cors');
 //super secret configuration
 require('dotenv').config();
 
-app.use(cors());
-
 //multer, for file processing
 const multer = require('multer');
 
@@ -18,8 +16,10 @@ const {
   ListObjectsV2Command,
   PutObjectCommand,
 } = require('@aws-sdk/client-s3');
+
 //Creates app
 const app = express();
+app.use(cors());
 
 //Variables required for s3 client
 const region = 'us-east-1';
