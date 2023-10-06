@@ -60,13 +60,6 @@ app.get('/images', (req, res) => {
     });
 });
 
-// app.get('/images/:key', (req, res) => {
-/*This function needs to do the exact same as the above, then we need to see the format of the response before moving on, this will be a last step.
-    We are going to filter the repsonses by the key which was passed in the request params, and then only return the S3 objects that 
-    contain that key, that way we only return certain objects */
-/*Check to see if there is a SDK function that would allow us to only search for certain objects by a request param, but not sure if there is */
-//});
-
 //upload files
 /* Multer is going to take our file and run it through the single middleware, then populating our req
 parameter with the processed upload file, which allows us to access certain keys within the object, such as path or file */
@@ -76,7 +69,7 @@ app.post('/images', upload.single('image'), async (req, res) => {
   }
 
   const file = req.file;
-  const appliedKey = Date.now() + '_' + file.originalname;
+  const appliedKey = 'original-image/' + file.originalname;
 
   //debugging catches just in case
   console.log(file);
